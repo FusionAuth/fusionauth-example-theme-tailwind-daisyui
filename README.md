@@ -1,12 +1,6 @@
-# Theme helper
+# FusionAuth + Tailwind + DaisyUI
 
-This repository has tools to help with FusionAuth theme management. It offers syncing to and from your local system.
-
-This repository is for helping you edit, develop and manage FusionAuth themes locally.
-
-Because these helper scripts uploads the results of your changes in real-time, it is best used on non-production systems.
-
-More about FusionAuth themes: https://fusionauth.io/docs/v1/tech/themes/
+This repository contains an example of how to integrate [Tailwind CSS](https://tailwindcss.com), and [DaisyUI](https://daisyui.com/) into your [FusionAuth](https://fusionauth.io) theme.
 
 ## Prerequisites
 
@@ -29,7 +23,7 @@ Run `download.sh` to pull down theme files, including freemarker, messages and s
 
 Commit them to version control.
 
-In a separate terminal, run `npm run watch`. This will upload any modified templates and will overwrite anything present in the remote system whenever a local file changes. 
+In separate terminals, run `npm run watch` and `npm run watch:tailwind`. This will upload any modified templates and will overwrite anything present in the remote system whenever a local file changes.
 
 Edit the files using whatever local editor you want.
 
