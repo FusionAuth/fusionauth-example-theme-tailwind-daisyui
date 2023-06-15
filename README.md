@@ -4,32 +4,52 @@ This repository contains an example of how to integrate [Tailwind CSS](https://t
 
 ## Prerequisites
 
-* curl
-* node
-* npm
-* jq: https://stedolan.github.io/jq
+* Node.js
+* Yarn or NPM
+* A FusionAuth instance. This can be locally installed or in the cloud. See [FusionAuth](https://fusionauth.io) for more information.
+* (optional) FreeMarker plugin for VSCode: https://marketplace.visualstudio.com/items?itemName=dcortes92.FreeMarker
 
-## Installation
+## Setting up Environment
 
-* `npm install`
-* update `.env.sample` with your API key, FusionAuth hostname, and theme id and copy it to `.env`
-* you can modify the TMP_DIR to be whereever you'd like it to be, the default is `tmp` in the current directory.
+1. Create an API key in FusionAuth. This key will be used to communicate with the FusionAuth API. See [API Keys](https://fusionauth.io/docs/v1/tech/apis/authentication#api-keys) for more information.
+    1. Navigate to **Settings** > **API Keys**.
+    2. Click **Add**.
+    3. Enter a description for the key.
+    4. Select `GET` and `PATCH` options for `/api/theme`
+    5. Note the API key value. This will be used in step 3.
+    6. Click **Save**.
+2. Duplicate the default FusionAuth theme
+    1. Navigate to **Settings** > **Themes**.
+    2. Click **Duplicate**.
+    3. Enter a name for the theme.
+    4. Click **Save**.
+    5. Note the ID of the theme. This will be used in step 3.
 
-The provided API key must have `/api/theme` permissions for the `GET` and `PATCH` methods.
+## Download the theme
 
-## Usage
+1. Run `npx fusionauth theme:download <themeId> --k <apiKey>` to export the theme.
+2. The theme will be downloaded to the `tpl` directory.
 
-Run `download.sh` to pull down theme files, including freemarker, messages and stylesheet files.
+Please note that the export will overwrite the `tpl` directory, and any changes you have made to the files will be lost.
 
-Commit them to version control.
+## Build the tailwind css
 
-In separate terminals, run `npm run watch` and `npm run watch:tailwind`. This will upload any modified templates and will overwrite anything present in the remote system whenever a local file changes.
+1. Run `tailwindcss -i ./input.css -o ./tpl/stylesheet.css` to build the tailwind css.
+2. The css will be built to the `tpl/stylesheet.css` file.
 
-Edit the files using whatever local editor you want.
+If you want to minify the css, run `tailwindcss -i ./input.css -o ./tpl/stylesheet.css --minify`.
 
-In the browser, reload themed pages and see your changes live.
+## Upload the theme
 
-When done, commit changes to version control.
+1. Run `npx fusionauth theme:upload <themeId> --k <apiKey>` to export the theme.
+2. The theme will be uploaded from the `tpl` directory.
 
-You can do a final upload of whatever is in the TMP_DIR by running `upload.sh`.
+Please note that the import will overwrite the theme in FusionAuth, and any changes you have made to the theme through the FusionAuth UI will be lost.
 
+## Custom styles
+
+1. Add custom styles to the `index.css` file.
+
+## Automatically build and upload the theme
+
+Run `npm run watch:theme` and `npm run watch:tailwind` in two separate terminals to automatically build and upload the theme when changes are made.
