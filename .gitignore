@@ -1,5 +1,0 @@
-node_modules
-*.swp
-.env
-tmp*
-package-lock.json
