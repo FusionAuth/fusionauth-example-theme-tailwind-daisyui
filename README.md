@@ -48,7 +48,7 @@ Please note that the import will overwrite the theme in FusionAuth, and any chan
 
 ## Custom styles
 
-1. Add custom styles to the `index.css` file.
+1. Add custom styles to the `input.css` file.
 
 ## Automatically build and upload the theme
 
